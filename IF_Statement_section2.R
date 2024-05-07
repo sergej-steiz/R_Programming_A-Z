@@ -30,7 +30,7 @@ if(x > 1){
       }
 }
 
-#better approach
+#better approach 
 rm(answer)
 x <- rnorm(1,mean=0,sd=1)
 if(x > 1){
