@@ -1,4 +1,4 @@
-
+# type of variables
 
 #integer
 x <- 2L

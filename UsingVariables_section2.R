@@ -1,3 +1,5 @@
+#variables in R 
+
 A <- 10
 B <- 5
 

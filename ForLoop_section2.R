@@ -1,3 +1,5 @@
+# For loop 
+
 counter <- 1
 while(counter<12){
   print(counter)
@@ -9,4 +11,4 @@ while(counter<12){
 for(i in 1:5){
   print("Hello R")
   print(i)
-} 
+}  
