@@ -44,3 +44,4 @@ for(i in 1:N){
 #FAZIT  vectorized approach is faster!
 
 
+
