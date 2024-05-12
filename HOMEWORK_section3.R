@@ -10,7 +10,7 @@
 
 #  -profit for each month
 #  -profit after tax for each month (the tax rate is 30%)
-#  -profit margin for each month - equals to profit after tax divided by reveneu
+#  -profit margin for each month - equals to profit after tax divided by revenue
 #  -good months - where the profit after tax was greater than the mean for the year
 #  -bad months - where the profit after tax was less than the mean for the year
 #  -the best month - where the profit after tax was max for the year
@@ -34,12 +34,122 @@ expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5
 #Solution
 typeof(revenue)
 typeof(expenses)
+# -profit for each month
 # the formula for calculating profit is Profit = Revenue - Expenses
+# where Revenue is the total income generated for the month.  Expenses are the total costs incurred for the month.
+profit <-  revenue - expenses
+
+#-profit after tax for each month (the tax rate is 30%)
+#Profit After Tax=Profit Before Tax−(Profit Before Tax * Tax Rate)
+tax_rate <- 0.3
+#no check if profit is negateve value
+profit_after_tax <- round(profit - (profit*tax_rate),digits = 2)
+
+#rm(profit_after_tax)
+# with check if negative value
+# is not working, also negative values are considered even print(i) shows only positive values!!!
+profit_after_tax2 <- profit
+for (i in profit){
+  
+  if (i>0){
+
+    print(i)
+    profit_after_tax2 <- round(profit - (profit*tax_rate),digits = 2)
+    print(profit_after_tax2)
+  }
+
+}
+
+profit
+profit_after_tax
+profit_after_tax2
 
 
+profit_after_tax2 <- profit
+#De-vectorized approach  Works well!
+for (k in 1:length(profit)){
+  
+  if (profit[k]>0){
+    
+    profit_after_tax2[k] <- profit[k] - (profit[k]*tax_rate)
+    
+  }
+  
+}
+
+profit
+profit_after_tax
+profit_after_tax2
 
 
+round(profit_after_tax2, digits = 0)
+
+##  -profit margin for each month - equals to profit after tax divided by revenue
+profit_margin <- paste(sep="",round((profit_after_tax/revenue)*100,digits = 0),"%")
+profit_margin
+
+profit_margin2 <- paste(sep="",round((profit_after_tax2/revenue)*100,digits = 0),"%")
+profit_margin2
 
 
+#-good months - where the profit after tax was greater than the mean for the year
+mean_profit <- mean(profit_after_tax)
+for (i in profit_after_tax){
+  
+  if (i>mean_profit){
+    print(i)
+
+  }
+}
+
+vector <- rep(FALSE,12)
+typeof(vector)
+#De-vectorized approach  Works well!
+for (k in 1:length(profit_after_tax)){
+  
+  vector[k] <- isTRUE(profit_after_tax[k] > mean_profit)
+
+  if (profit_after_tax[k]>mean_profit){
+    
+    print(k)
+
+    
+  }
+  
+}
+
+profit_after_tax[vector]
+
+# -bad months - where the profit after tax was less than the mean for the year
+profit_after_tax[!vector]
+
+vector <- rep(FALSE,12)
+for (k in 1:length(profit_after_tax)){
+  
+  vector[k] <- isTRUE(profit_after_tax[k] < mean_profit)
+  
+}
+vector
+
+logical_vector <- profit_after_tax <= mean(profit_after_tax)
+print(logical_vector)
+
+#-the best month - where the profit after tax was max for the year
+best_month <- max(profit_after_tax)
+
+# Creating a logical vector using comparison operators
+logical_vector <- profit_after_tax >= max(profit_after_tax)
+print(logical_vector)
+
+profit_after_tax[logical_vector]
+
+# -the worst month - where the profit after tax was min for the year
+logical_vector <- profit_after_tax <= min(profit_after_tax)
+print(logical_vector)
+
+profit_after_tax[logical_vector]
+
+#MyVector <- c(12, 456, 34.5, 23, 55, "34hello")
+#typeof(MyVector)
 
 

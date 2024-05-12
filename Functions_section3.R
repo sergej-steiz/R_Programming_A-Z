@@ -35,7 +35,9 @@ rep(5:6,times=10)
 rep(5:6,each=10)
 rep(x,each=10)
 
-
+A <- seq(from=10, to=20, along.with=x)
+sqrt(A)
+B <- sqrt(A)
 
 
 
