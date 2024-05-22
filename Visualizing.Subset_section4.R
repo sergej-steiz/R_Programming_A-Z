@@ -60,4 +60,4 @@ myplot <- function(data, rows=1:10){
 myplot(Salary, 1:5)
 myplot(Salary, 1:10) # all of them
 myplot(Salary)       # default values
-  
+
