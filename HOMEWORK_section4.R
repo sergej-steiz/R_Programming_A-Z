@@ -113,4 +113,16 @@ myplot(Free.Throws)
 
 
 # - Accuracy of Free Throws
+
+myplot(Free.Throws/Free.Throws.Attempts)
+
+
 # - Player playing style (2 vs 3 points preference) excluding Free Throws
+ds <- (Points - Free.Throws)/Games
+myplot(ds)
+
+ds <- (FieldGoals - Free.Throws)/Games
+myplot(ds)
+
+
+
