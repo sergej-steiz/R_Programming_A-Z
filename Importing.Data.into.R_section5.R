@@ -31,7 +31,7 @@ tail(stats)
 tail(stats, n=8)
 str(stats)
 summary(stats)
-
+summary(stats$Internet.users)
 #-----------------------------------------------------Using the $ sign
 stats
 head(stats)
@@ -67,13 +67,19 @@ stats[1,]
 is.data.frame(stats[1,])  # no need for drop=F
 
 # however , for columns , it will be converted to a vector
-stats[ ,1]
+object <- stats[ ,1]
+is.vector(object)  # FALSE
+typeof(object)     # integer
+is.factor(object)  # TRUE
+
 is.data.frame(stats[ ,1]) 
-
 is.vector(stats[ ,1])
+typeof(stats[ ,1])
 
-stats[ ,1,drop=F]
+
+stats[ ,1,drop=F]  # with drop=F, same as for matrix , we can retain object as a data frame
 is.data.frame(stats[ ,1,drop=F])
+typeof(stats[ ,1,drop=F]) # list
 
 #multiply columns
 head(stats)
@@ -99,6 +105,7 @@ head(stats)
 head(stats)
 filter <- stats$Internet.users < 2 # we create a vector with TRUE/FALSE values
 stats[filter,]
+rm(filter)
 
 stats[stats$Birth.rate>40,]
 stats[stats$Birth.rate>40 & stats$Internet.users<2,]
@@ -107,13 +114,27 @@ levels(stats$Income.Group)
 head(stats,n=10)
 stats[stats$Country.Code == "MLT",]
 
+# min number of internet users
+stats[stats$Internet.users == min(stats$Internet.users),]
+
+# max number of internet users
+stats[stats$Internet.users == max(stats$Internet.users),]
+
+# To subset the rows that have either the minimum or the maximum number of internet users, you can use the logical OR operator |. 
+# This combines the two conditions into a single logical vector of the same length as the number of rows in your data frame.
+
+# Subset for both minimum and maximum number of internet users
+stats[stats$Internet.users == min(stats$Internet.users) | stats$Internet.users == max(stats$Internet.users), ]
 
 #--------------------------------- Introduction to qplot()
+
 #install.packages("ggplot2")
 library(ggplot2)
-?qplot
-qplot(data=stats, x=Internet.users)
-qplot(data=stats, x=Income.Group, y=Birth.rate)
+?qplot()
+qplot(data=stats, x=Internet.users) # histogram
+qplot(data=stats, x=Internet.users, y=Birth.rate) # scatter plot - continuous data
+
+qplot(data=stats, x=Income.Group, y=Birth.rate)   # scatter plot - discrete data
 qplot(data=stats, x=Income.Group, y=Birth.rate, size=I(3))
 
 qplot(data=stats, x=Income.Group, y=Birth.rate, size=I(3),
@@ -176,3 +197,7 @@ head(merged)
 # we can remove it
 merged$Contry <- NULL
 str(merged)
+
+#--------------------------------- Visualizing With New Split
+
+
