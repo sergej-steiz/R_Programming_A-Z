@@ -199,5 +199,48 @@ merged$Contry <- NULL
 str(merged)
 
 #--------------------------------- Visualizing With New Split
+library(ggplot2)
+qplot(data=merged, x=Internet.users, y=Region)
+qplot(data=merged, x=Region, y=Internet.users)
+
+qplot(data=merged, x=Internet.users, y=Region,
+      size=I(4))
+qplot(data=merged, x=Region, y=Internet.users,
+      size=I(4))
+
+# categorize the scatter plot by income group
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region)
+
+qplot(data=merged, x=Birth.rate, y=Internet.users,
+      size=I(3), colour=Region)
+
+# 1. Shapes - (from 0 to 25 you can assign values)
+
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region, shape=I(17))
+
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region, shape=I(2))
+
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region, shape=I(15))
+
+# 2. Transparency -  alpha from 0 to 1, usefull when values are overlapping
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region, shape=I(19),
+      alpha=I(0.6))
+
+# 3. Title - main parameter
+qplot(data=merged, x=Internet.users, y=Birth.rate,
+      size=I(3), colour=Region, shape=I(19),
+      alpha=I(0.6), main="Birth rate vs Internet users")
+
+
+
+
+
+
+
 
 
