@@ -81,15 +81,43 @@ data2013_merged <- my_merge(df1=data2013,df2=life_exp_2013)
 # get plots
 
 # error by function, asked team for suggestions.
-my_plot <- function(data=data1960_merged, x_val=Fertility.Rate, y_val=life_exp,by_var=Region){
+my_plot <- function(data, x_val, y_val,by_var){
   
-  qplot(data=data, x=x_val, y=y_val,
+  qplot(data=data, x_val, y_val,
         size=I(3),colour=by_var, shape=I(19),
         main="Fertility.Rate vs Life Expectancy by Region",
         alpha=I(0.6))
   
 }
-my_plot()
+my_plot(data1960_merged, "Fertility.Rate", "life_exp,Region","Region")
+
+my_plot2 <- function(data, x_val, y_val, by_var) {
+  #library(ggplot2)
+  
+  ggplot(data, aes_string(x = x_val, y = y_val, color = by_var)) +
+    geom_point(size = 3, shape = 19, alpha = 0.6) +
+    ggtitle("Fertility Rate vs Life Expectancy by Region")
+}
+
+# Example usage:
+my_plot2(data1960_merged, "Fertility.Rate", "life_exp", "Region")
+
+
+my_plot3 <- function(data, x_val = "Fertility.Rate", y_val = "life_exp", by_var = "Region") {
+  #library(ggplot2)
+  
+  ggplot(data, aes_string(x = x_val, y = y_val, color = by_var)) +
+    geom_point(size = 3, shape = 19, alpha = 0.6) +
+    ggtitle("Fertility Rate vs Life Expectancy by Region")
+}
+
+# Example usage with default values:
+my_plot3(data1960_merged)
+
+# Example usage with specified values:
+#my_plot(data1960_merged, "some_other_x", "some_other_y", "some_other_var")
+
+
 
 # works well
 # 1960s by region
@@ -107,4 +135,39 @@ qplot(data=data2013_merged, x=Fertility.Rate, y=life_exp,
 #Region
 
 
+# -------------------------------------chat gpt for both years
+# Load the ggplot2 library
+library(ggplot2)
+
+# Sample data for 1960
+data_1960 <- data.frame(
+  Country = c("Country1", "Country2", "Country3", "Country4", "Country5"),
+  LifeExpectancy = c(50, 60, 55, 70, 65),
+  FertilityRate = c(5.5, 4.7, 6.2, 3.1, 4.0),
+  Year = 1960
+)
+
+# Sample data for 2013
+data_2013 <- data.frame(
+  Country = c("Country1", "Country2", "Country3", "Country4", "Country5"),
+  LifeExpectancy = c(72, 78, 74, 81, 79),
+  FertilityRate = c(2.5, 2.1, 2.8, 1.9, 2.2),
+  Year = 2013
+)
+
+# Combine the data for both years
+combined_data <- rbind(data_1960, data_2013)
+
+# Scatter plot for both years
+combined_plot <- ggplot(combined_data, aes(x = FertilityRate, y = LifeExpectancy, color = factor(Year), shape = factor(Year))) +
+  geom_point(size = 3) +
+  ggtitle("Life Expectancy vs Fertility Rate (1960 & 2013)") +
+  xlab("Fertility Rate") +
+  ylab("Life Expectancy") +
+  theme_minimal() +
+  scale_color_manual(values = setNames(c("blue", "red"), c("1960", "2013")), name = "Year") +
+  scale_shape_manual(values = setNames(c(16, 17), c("1960", "2013")), name = "Year")
+
+# Print the combined plot
+print(combined_plot)
 
