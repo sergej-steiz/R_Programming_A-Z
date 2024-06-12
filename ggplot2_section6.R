@@ -91,6 +91,85 @@ q + geom_line() + geom_point()
 #reduce line size
 q + geom_line(size=1) + geom_point()
 
+#----------------------------------- Mapping vs Settings
+r <- ggplot(data = movies, aes(x=CriticRating, y=AudienceRating))
+r + geom_point()
+
+#Add colour
+
+#1. Mapping (what we've done so far):
+r + geom_point(aes(colour=Genre))
+#2. Setting:
+r + geom_point(colour="DarkGreen")
+#ERROR
+#r + geom_point(aes(colour="DarkGreen"))
+
+#1. Mapping
+r + geom_point(aes(size=BudgetMillions))
+#2. Setting:
+r + geom_point(size=10)
+#ERROR
+#r + geom_point(aes(size=10))
+
+#----------------------------------- Histograms and Density Charts
+s <- ggplot(data = movies, aes(x=BudgetMillions))
+s + geom_histogram(binwidth = 50)
+
+# add colour
+s + geom_histogram(binwidth = 10, fill="Green")
+s + geom_histogram(binwidth = 10, aes(fill=Genre))
+# add a border
+s + geom_histogram(binwidth = 10, aes(fill=Genre), colour="Black")
+#>>> 3 (we will improve it)
+
+
+# sometimes you may need density charts:
+s + geom_density(aes(fill=Genre))
+s + geom_density(aes(fill=Genre),position = "stack")
+
+
+# Starting Layer Tips
+t <- ggplot(data=movies, aes(x=AudienceRating))
+t + geom_histogram(binwidth = 10,
+                   fill="White", colour="Blue")
+
+# another way:
+t <- ggplot(data=movies)
+t + geom_histogram(binwidth = 10,
+                   aes(x=AudienceRating),
+                   fill="White", colour="Blue")
+
+t + geom_histogram(binwidth = 10,
+                   aes(x=CriticRating),
+                   fill="White", colour="Blue")
+
+# sometimes you can use ggplot sceleton if you want to change the data
+t <- ggplot()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
 
 
 
