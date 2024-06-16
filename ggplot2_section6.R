@@ -102,7 +102,8 @@ r + geom_point(aes(colour=Genre))
 #2. Setting:
 r + geom_point(colour="DarkGreen")
 #ERROR
-#r + geom_point(aes(colour="DarkGreen"))
+#r + geom_point
+
 
 #1. Mapping
 r + geom_point(aes(size=BudgetMillions))
@@ -148,8 +149,74 @@ t <- ggplot()
 
 
 
+#----------------------------------- Statistical Transformations
+?geom_smooth()
+
+u <- ggplot(data=movies,aes(x=CriticRating, y=AudienceRating, colour=Genre))
+
+u + geom_point() + geom_smooth(fill=NA)
+
+# box plots
+
+u <- ggplot(data=movies, aes(x=Genre, y=AudienceRating,
+                             colour=Genre))
+
+u + geom_boxplot(size=1.2)
+
+u + geom_boxplot(size=1.2) + geom_point()
+
+#tip/hack:
+u + geom_boxplot(size=1.2) + geom_jitter() # randomly spread points over boxplot
+
+#another way:
+u + geom_jitter() + geom_boxplot(size=1.2, alpha=0.5)
+
+# a short challenge
+u2 <- ggplot(data=movies, aes(x=CriticRating, y=AudienceRating,
+                             colour=Genre))
 
 
+u2 + geom_jitter() + geom_boxplot(size=1.2, alpha=0.5)
+
+
+
+#----------------------------------- Using Facets
+#str(movies)
+v <- ggplot(data=movies, aes(x=BudgetMillions))
+v + geom_histogram(binwidth = 10, aes(fill=Genre),
+                   colour = "Black") 
+
+#facets:
+v + geom_histogram(binwidth = 10, aes(fill=Genre),
+                   colour = "Black") + 
+  #facet_grid(Genre~.)
+  facet_grid(.~Genre)
+
+# free up your scales with the parameter scales="free"
+v + geom_histogram(binwidth = 10, aes(fill=Genre),
+                   colour = "Black") + 
+  facet_grid(Genre~.,scales="free")
+  #facet_grid(.~Genre, scales = "free")
+
+#scatterplots:
+
+w <- ggplot(data = movies, aes(x=CriticRating, y=AudienceRating,
+                               colour=Genre))
+w + geom_point(size=3)
+
+#facets
+w + geom_point(size=3) + 
+  facet_grid(Genre~.)
+
+w + geom_point(size=3) + 
+  facet_grid(~Year)
+
+w + geom_point(size=3) + 
+  facet_grid(Genre~Year)
+
+w + geom_point(size=3) +
+  geom_smooth(fill=NA) +
+  facet_grid(Genre~Year)
 
 
 
