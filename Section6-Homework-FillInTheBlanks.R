@@ -1,16 +1,19 @@
 #Import the Data
 getwd()
-setwd("_")
-mov <- read.csv("Section6-Homework-Data.csv")
+setwd("C:\\Users\\Sergej\\R_Programming_A-Z")
+getwd()
+#mov <- read.csv("Section6-Homework-Data.csv")
+mov <- read.csv("Section6-Homework-Data.csv",stringsAsFactors = T)
+
 
 #Data Exploration
-_(mov) #top rows
-_(mov) #column summaries
-_(mov) #structure of the dataset
+head(mov) #top rows
+summary(mov) #column summaries
+str(mov) #structure of the dataset
 
 #Activate GGPlot2
 #install.packages("ggplot2")
-library(_)
+library(ggplot2)
 
 #{Offtopic} This Is A Cool Insight:
 ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
@@ -23,15 +26,15 @@ ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
 filt <- (mov$Genre == "action") | (mov$Genre == "adventure") | (mov$Genre == "animation") | (mov$Genre == "comedy") | (mov$Genre == "drama")
 
 #Now let's do the same for the Studio filter:
-filt2 <- (_ == "Buena Vista Studios") | (_ _ "WB") | (_ _ "Fox") _ (_ _ "Universal") _ (_ _ "Sony") _ (_ _ "Paramount Pictures")
+filt2 <- (mov$Studio == "Buena Vista Studios") | (mov$Studio == "WB") | (mov$Studio == "Fox") | (mov$Studio == "Universal") | (mov$Studio == "Sony") | (mov$Studio == "Paramount Pictures")
   
 #Apply the row filters to the dataframe
-mov2 <- mov[_ & _,]
+mov2 <- mov[filt & filt2,]
 
 #Prepare the plot's data and aes layers
 #Note we did not rename the columns. 
 #Use str() or summary() to fin out the correct column names
-p <- ggplot(data=_, aes(x=_, y=_))
+p <- ggplot(data=mov2, aes(x=_, y=_))
 p #Nothing happens. We need a geom.
 
 #Add a Point Geom Layer

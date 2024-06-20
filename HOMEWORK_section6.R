@@ -36,10 +36,10 @@ colnames(my_df)
 colnames(my_df) <- c("Genre","Studio","BudgetMillions","GrossUS")
 
 # Calculate total domestic gross
-my_df$total_domestic_gross <- sum(my_df$GrossUS)
+#my_df$total_domestic_gross <- sum(my_df$GrossUS)
 
 # Calculate Domestic Gross % for each movie
-my_df$DomesticGrossPercent <- (my_df$GrossUS / my_df$total_domestic_gross) *100 
+#my_df$DomesticGrossPercent <- (my_df$GrossUS / my_df$total_domestic_gross) *100 
 
 
 
@@ -48,12 +48,69 @@ library(ggplot2)
 
 
 
-my_plot <- ggplot(data = my_df, aes(x=Genre, y=DomesticGrossPercent,
-                                    , colour=Studio, size=BudgetMillions)) 
+my_plot <- ggplot(data = my_df, aes(x=Genre, y=GrossUS)) 
 
-my_plot + geom_boxplot(size=1.2, alpha=0.5)
+#Add a Point Geom Layer
+my_plot + 
+  geom_point(aes(colour=Studio, size=BudgetMillions))
 
-my_plot + geom_jitter() + geom_boxplot(size=1.2, alpha=0.5)
+#Add a boxplot instead of the points
+my_plot + 
+  geom_boxplot(size=0.7, alpha=0.5)
 
+#Add points
+my_plot + 
+  geom_boxplot(size=0.7, alpha=0.5) + 
+  geom_point(aes(colour=Studio, size=BudgetMillions))
 
+#Replace points with jitter
+my_plot + 
+  geom_jitter(aes(colour=Studio, size=BudgetMillions)) +
+  geom_boxplot(size=0.7, alpha=0.7)
 
+#Let's remove outlines:
+my_plot + 
+  geom_jitter(aes(colour=Studio, size=BudgetMillions)) +
+  geom_boxplot(alpha=0.7,outlier.colour = NA)
+
+#Let's "Save" our progress by placing it into a new object:
+q <- my_plot + 
+  geom_jitter(aes(colour=Studio, size=BudgetMillions)) +
+  geom_boxplot(alpha=0.7,outlier.colour = NA)
+q
+
+#Non-data ink
+q <- q +
+  xlab("Genre") + #x axis title
+  ylab("Gross % US") + #y axis title
+  ggtitle("Domestic Gross % by Genre") #plot title
+q
+
+#HINT: for the next part use ?theme if you need to 
+#refresh which parameters are responsible for what
+
+#Theme
+q <- q + 
+  theme(
+    #this is a shortcut to alter ALL text elements at once:
+    text = element_text(family="Comic Sans MS"),
+    
+    #Axes titles:
+    _ = element_text(colour="Blue", size=30),
+    _ = element_text(colour="Blue", size=30),
+    
+    #Axes texts:
+    _ = element_text(size=20),
+    _ = element_text(size=20),  
+    
+    #Plot title:
+    _ = element_text(colour="Black",
+                     size=40),
+    
+    #Legend title:
+    _ = element_text(size=20),
+    
+    #Legend text
+    _ = element_text(size=12)
+  )
+q
