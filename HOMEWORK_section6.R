@@ -96,21 +96,29 @@ q <- q +
     text = element_text(family="Comic Sans MS"),
     
     #Axes titles:
-    _ = element_text(colour="Blue", size=30),
-    _ = element_text(colour="Blue", size=30),
+    axis.title.x = element_text(colour="Blue", size=30),
+    axis.title.y = element_text(colour="Blue", size=30),
     
     #Axes texts:
-    _ = element_text(size=20),
-    _ = element_text(size=20),  
+    axis.text.x = element_text(size=20),
+    axis.text.y = element_text(size=20),  
     
     #Plot title:
-    _ = element_text(colour="Black",
+    plot.title = element_text(colour="Black",
                      size=40),
     
     #Legend title:
-    _ = element_text(size=20),
+    legend.title = element_text(size=20),
     
     #Legend text
-    _ = element_text(size=12)
+    legend.text = element_text(size=12)
   )
 q
+
+
+#Final touch. We haven't discussed this in the course,
+#However this is how you can change individual legend titles:
+q$labels$size = "Budget $M"
+q
+
+#Well done!
